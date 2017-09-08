@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 from liveodds.api import totalcorner
 from liveodds.config import totalcorner_test_token
@@ -16,6 +16,15 @@ def home():
 
 @app.route('/index.html', methods=['POST', 'GET'])
 def index():
+    return render_template('/index.html')
+
+
+@app.route('/submit', methods=['POST', 'GET'])
+def submit():
+    minute = request.form.get("inputMinute")
+    general = request.form.get("inputGeneral")
+    nations = request.form.get("inputNation")
+    print(f'{minute}, {general}, {nations}')
     return render_template('/index.html')
 
 

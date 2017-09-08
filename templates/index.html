@@ -23,38 +23,32 @@
 			<div class="container">
 				<div class="panel panel-default" style="margin:0 auto;width:500px">
 					<div class="panel-heading">
-						<h2 class="panel-title">Settings</h2>
+						<h2 class="panel-title">Live Odds Settings - TotalCorner</h2>
 					</div>
 					<div class="panel-body">
-						<form name="contactform" method="post" action="http://wedding-space.net/01_admin_resources/blog/contact_form/mailer.php" class="form-horizontal" role="form">
+						<form name="contactform" method="post" action="/submit" class="form-horizontal" role="form">
 							<div class="form-group">
-								<label for="inputName" class="col-lg-2 control-label">Name</label>
+								<label for="inputName" class="col-lg-2 control-label">Minute</label>
 								<div class="col-lg-10">
-									<input type="text" class="form-control" id="inputName" name="inputName" placeholder="Your Name">
+									<input type="text" class="form-control" id="inputMinute" name="inputMinute" placeholder="Match minute">
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputEmail1" class="col-lg-2 control-label">Email</label>
+								<label for="inputEmail1" class="col-lg-2 control-label">General</label>
 								<div class="col-lg-10">
-									<input type="text" class="form-control" id="inputEmail" name="inputEmail" placeholder="Your Email">
+									<input type="text" class="form-control" id="inputGeneral" name="inputGeneral" placeholder="General Input">
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputSubject" class="col-lg-2 control-label">Subject</label>
+								<label for="inputPassword1" class="col-lg-2 control-label">Nation(s)</label>
 								<div class="col-lg-10">
-									<input type="text" class="form-control" id="inputSubject" name="inputSubject" placeholder="Subject Message">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="inputPassword1" class="col-lg-2 control-label">Message</label>
-								<div class="col-lg-10">
-									<textarea class="form-control" rows="4" id="inputMessage" name="inputMessage" placeholder="Your message..."></textarea>
+									<textarea class="form-control" rows="4" id="inputNation" name="inputNation" placeholder="Nation1, Nation2..."></textarea>
 								</div>
 							</div>
 							<div class="form-group">
 								<div class="col-lg-offset-2 col-lg-10">
 									<button type="submit" class="btn btn-default">
-										Submit Changes
+										Submit
 									</button>
 								</div>
 							</div>

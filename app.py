@@ -21,8 +21,25 @@ def index():
 
 @app.route('/submit', methods=['POST', 'GET'])
 def submit():
-    CoNz = request.form.get("inputCoNz")
-    print(CoNz)
+    nationstr = request.form.get("inputCoNz")
+    nations = (dict(item.split("\t") for item in nationstr.splitlines()))
+    print(nations)
+    data = {}
+    data["Ptph"] = request.form.get("inputPtph")
+    data["Ptfh"] = request.form.get("inputPtfh")
+    data["Ptpa"] = request.form.get("inputPtpa")
+    data["Ptfa"] = request.form.get("inputPtfa")
+    data["PAtpH"] = request.form.get("inputPAtpH")
+    data["Patpa"] = request.form.get("inputPatpa")
+    data["CofMinH"] = request.form.get("inputCofMinH")
+    data["CofMinA"] = request.form.get("inputCofMinA")
+    data["CoefMinH"] = request.form.get("inputCoefMinH")
+    data["CoefMinA"] = request.form.get("inputCoefMinA")
+    data["CoefMaxSgt"] = request.form.get("inputCoefMaxSgt")
+    data["CoefMinSgt"] = request.form.get("inputCoefMinSgt")
+    data["ValueMax"] = request.form.get("inputValueMax")
+    data["ValueMin"] = request.form.get("inputValueMin")
+    print(data)
     return render_template('/index.html')
 
 

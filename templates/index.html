@@ -19,7 +19,7 @@
 	</head>
 
 	<body style="background:url('bg.png') repeat">
-		<div style="margin-top:200px">
+		<div style="margin-top:50px">
 			<div class="container">
 				<div class="panel panel-default" style="margin:0 auto;width:500px">
 					<div class="panel-heading">
@@ -28,21 +28,99 @@
 					<div class="panel-body">
 						<form name="contactform" method="post" action="/submit" class="form-horizontal" role="form">
 							<div class="form-group">
-								<label for="inputName" class="col-lg-2 control-label">Minute</label>
+								<label for="inputName" class="col-lg-2 control-label">Min</label>
 								<div class="col-lg-10">
-									<input type="text" class="form-control" id="inputMinute" name="inputMinute" placeholder="Match minute">
+									<input type="text" class="form-control" id="inputMinute" name="inputMinute" placeholder="Minuto dati">
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputEmail1" class="col-lg-2 control-label">General</label>
+								<label for="inputName" class="col-lg-2 control-label">CoNz</label>
 								<div class="col-lg-10">
-									<input type="text" class="form-control" id="inputGeneral" name="inputGeneral" placeholder="General Input">
+									<textarea class="form-control" rows="4" id="inputMessage" name="inputCoNz" placeholder="Coefficiente Nazione"></textarea>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputPassword1" class="col-lg-2 control-label">Nation(s)</label>
+								<label for="inputEmail1" class="col-lg-2 control-label">Ptph</label>
 								<div class="col-lg-10">
-									<textarea class="form-control" rows="4" id="inputNation" name="inputNation" placeholder="Nation1, Nation2..."></textarea>
+									<input type="text" class="form-control" name="inputPtph" placeholder="Coeff (peso) Tiri porta home">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputEmail1" class="col-lg-2 control-label">Ptfh</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control" name="inputPtfh" placeholder="Coeff (peso) Tiri fuori home">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputEmail1" class="col-lg-2 control-label">Ptpa</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control" name="inputPtpa" placeholder="Coeff (peso) Tiri in porta away">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputEmail1" class="col-lg-2 control-label">Ptfa</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control" name="inputPtfa" placeholder="Coeff (peso) Tiri fuori away">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputEmail1" class="col-lg-2 control-label">PAtpH</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control" name="inputPAtpH" placeholder="Coeff (peso) Attacchi pericolosi Home">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputEmail1" class="col-lg-2 control-label">Patpa</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control" name="inputPatpa" placeholder="Coeff (peso) Attacchi pericolosi Away">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputEmail1" class="col-lg-2 control-label">CofMinH</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control" name="inputCofMinH" placeholder="Coefficiente minimo gol teorici home">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputEmail1" class="col-lg-2 control-label">CofMinA</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control" name="inputCofMinA" placeholder="Coefficiente minimo gol teorici away">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputEmail1" class="col-lg-2 control-label">CoefMinH</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control" name="inputCoefMinH" placeholder="Coeff Minuti Partita Home">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputEmail1" class="col-lg-2 control-label">CoefMinA</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control" name="inputCoefMinA" placeholder="Coeff Minuti Partita Away">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputEmail1" class="col-lg-2 control-label">CoefMaxSgt</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control" name="inputCoefMaxSgt" placeholder="">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputEmail1" class="col-lg-2 control-label">CoefMixSgt</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control" name="inputCoefMixSgt" placeholder="">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputEmail1" class="col-lg-2 control-label">ValueMax</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control" name="inputValueMax" placeholder="">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputEmail1" class="col-lg-2 control-label">ValueMin</label>
+								<div class="col-lg-10">
+									<input type="text" class="form-control" name="inputValueMin" placeholder="">
 								</div>
 							</div>
 							<div class="form-group">

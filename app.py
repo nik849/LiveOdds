@@ -21,10 +21,8 @@ def index():
 
 @app.route('/submit', methods=['POST', 'GET'])
 def submit():
-    minute = request.form.get("inputMinute")
-    general = request.form.get("inputGeneral")
-    nations = request.form.get("inputNation")
-    print(f'{minute}, {general}, {nations}')
+    CoNz = request.form.get("inputCoNz")
+    print(CoNz)
     return render_template('/index.html')
 
 

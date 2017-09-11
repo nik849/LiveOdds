@@ -43,8 +43,9 @@ def submit():
     data["ValueMin"] = request.form.get("inputValueMin")
     print(data)
 
-    results = process(data)
-    return render_template('/fulltime.html', **results)
+    results_preds, results = process(data)
+    return render_template('/result.html', result_pred=results_preds,
+                           result=results)
 
 
 if __name__ == "__main__":

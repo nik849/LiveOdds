@@ -2,9 +2,10 @@ def process(data):
     """
     Processing method for returning liveodds from totalcorner request
     """
+    results_preds = {}
     results = {}
 
-    return results
+    return {results_preds, results}
 
 
 # Datk	Delta atk al minuto

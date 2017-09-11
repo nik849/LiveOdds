@@ -2,6 +2,8 @@ from flask import Flask, render_template, request
 
 from liveodds.api import totalcorner
 from liveodds.config import totalcorner_test_token
+from liveodds.processing import process
+
 
 app = Flask(__name__)
 app.secret_key = 'key'
@@ -40,7 +42,9 @@ def submit():
     data["ValueMax"] = request.form.get("inputValueMax")
     data["ValueMin"] = request.form.get("inputValueMin")
     print(data)
-    return render_template('/index.html')
+    
+    results = process(data)
+    return render_template('/fulltime.html', **results)
 
 
 if __name__ == "__main__":

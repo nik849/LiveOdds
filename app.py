@@ -44,7 +44,7 @@ def submit():
     print(data)
 
     results = process(data)
-    return render_template('/fulltime.html' **results)
+    return render_template('/fulltime.html', **results)
 
 
 if __name__ == "__main__":

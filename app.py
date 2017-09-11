@@ -4,6 +4,7 @@ from liveodds.api import totalcorner
 from liveodds.config import totalcorner_test_token
 from liveodds.processing import process
 
+
 app = Flask(__name__)
 app.secret_key = 'key'
 
@@ -44,7 +45,7 @@ def submit():
     print(data)
 
     results = process(data)
-    return render_template('/fulltime.html', **results)
+    return render_template('/result.html', result=results)
 
 
 if __name__ == "__main__":

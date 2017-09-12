@@ -41,9 +41,11 @@ def submit():
     data["CoefMinSgt"] = request.form.get("inputCoefMinSgt")
     data["ValueMax"] = request.form.get("inputValueMax")
     data["ValueMin"] = request.form.get("inputValueMin")
+
+    data["gol_line"] = None
     print(data)
 
-    results_preds, results = process(data)
+    results_preds, results = process(data, nations)
     return render_template('/result.html', result_pred=results_preds,
                            result=results)
 

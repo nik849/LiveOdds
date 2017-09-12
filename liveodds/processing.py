@@ -1,11 +1,29 @@
-def process(data):
+def process(data, nations):
     """
     Processing method for returning liveodds from totalcorner request
     """
     results_preds = {}
     results = {}
+    for nation, coeff in nations.items():
+        print(coeff)
 
-    return {results_preds, results}
+    results_preds["nation"] = nations.keys()
+    results_preds["home"] = 0
+    results_preds["away"] = 0
+    results_preds["Minute"] = data["Min"]
+    results_preds["Gol line"] = data["gol_line"]
+    results_preds["U/O"] = None
+    results_preds["Odd"] = None
+
+    results["nation"] = nations.keys()
+    results["home"] = 0
+    results["away"] = 0
+    results["Minute"] = data["Min"]
+    results["Gol line"] = data["gol_line"]
+    results["U/O"] = None
+    results["Odd"] = None
+
+    return results_preds, results
 
 
 # Datk	Delta atk al minuto

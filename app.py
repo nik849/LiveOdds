@@ -22,8 +22,8 @@ def index():
 
 @app.route('/submit', methods=['POST', 'GET'])
 def submit():
-    nationstr = request.form.get("inputCoNz")
-    nations = (dict(item.split("\t") for item in nationstr.splitlines()))
+    leaguestr = request.form.get("inputCoNz")
+    leagues = (dict(item.split("\t") for item in leaguestr.splitlines()))
     print(nations)
     data = {}
     data["Min"] = request.form.get("inputMinute")
@@ -45,7 +45,7 @@ def submit():
     data["gol_line"] = None
     print(data)
 
-    results_preds, results = process(data, nations)
+    results_preds, results = process(data, leagues)
     return render_template('/result.html', result_pred=results_preds,
                            result=results)
 

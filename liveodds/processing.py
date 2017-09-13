@@ -11,7 +11,7 @@ def process(data, tc_data, leagues):
                      'hyc', 'ayc', 'hf_hc', 'hf_ac', 'hf_hg', 'hf_ag', 'ish',
                      'hp', 'ap', 'asian_corner']
 
-    for match in tc_data["matches"]:
+    for match in tc_data:
         if match["status"] == 'full':
             results.update(match)
             calcs = {}
@@ -23,12 +23,12 @@ def process(data, tc_data, leagues):
             calcs["GttfA"] = len(match["shot_on"]) * float(data["Ptfa"])
             calcs["GtatpH"] = len(match["attacks_h"]) * float(data["PAtpH"])
             calcs["GtapA"] = len(match["attacks"]) * float(data["Patpa"])
+            calcs["GtHm"] = None
             results.update(calcs)
 
         elif match["status"] == data["Min"]:
             results_preds.update({'Minute': data["Min"]})
             results_preds.update(match)
-    print(results_preds.keys())
 
     if len(results) > 0:
         for key in unwanted_keys:

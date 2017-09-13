@@ -4,7 +4,6 @@ from liveodds.api import totalcorner
 from liveodds.config import totalcorner_test_token
 from liveodds.processing import process
 
-from time import sleep
 
 app = Flask(__name__)
 app.secret_key = 'key'
@@ -44,9 +43,7 @@ def submit():
     data["ValueMax"] = request.form.get("inputValueMax")
     data["ValueMin"] = request.form.get("inputValueMin")
 
-    for league in leagues.keys():
-        tc_data = tc.get_league_odds(league)
-        sleep(6)
+    tc_data = tc.get_odds()
     print(tc_data)
 
     results_preds, results = process(data, tc_data, leagues)

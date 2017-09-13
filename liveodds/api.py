@@ -53,7 +53,7 @@ class totalcorner():
             self.params.update(**kwargs)
         self.params['type'] = 'inplay'
         self.params['token'] = self.token
-        self.params['columns'] = "events,odds,cornerLine,cornerLineHalf,\
+        self.params['columns'] = "odds,cornerLine,cornerLineHalf,\
         goalLine,goalLineHalf,asianCorner,attacks,\
         dangerousAttacks,shotOn,shotOff,possession"
 

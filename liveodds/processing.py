@@ -24,11 +24,38 @@ def process(data, tc_data, leagues):
             calcs["GtatpH"] = len(match["attacks_h"]) * float(data["PAtpH"])
             calcs["GtapA"] = len(match["attacks"]) * float(data["Patpa"])
             calcs["GtHm"] = None
+            calcs["gtam"] = None
+            calcs["SgtM"] = None
+            calcs["DeltaM"] = None
+            calcs["GtFh"] = None
+            calcs["GtFa"] = None
+            calcs["sgtft1"] = None
+            calcs["sgtft"] = None
+            calcs["U/O"] = None
             results.update(calcs)
 
         elif match["status"] == data["Min"]:
             results_preds.update({'Minute': data["Min"]})
             results_preds.update(match)
+            calcs = {}
+            calcs["Datk"] = len(match["attacks_h"]) - len(match["attacks"])\
+                / int(data["Min"])
+            calcs["GttpH"] = len(match["shot_on_h"]) * float(data["Ptph"])
+            calcs["GttfH"] = len(match["shot_on_h"]) * float(data["Ptfh"])
+            calcs["GttpA"] = len(match["shot_on"]) * float(data["Ptpa"])
+            calcs["GttfA"] = len(match["shot_on"]) * float(data["Ptfa"])
+            calcs["GtatpH"] = len(match["attacks_h"]) * float(data["PAtpH"])
+            calcs["GtapA"] = len(match["attacks"]) * float(data["Patpa"])
+            calcs["GtHm"] = None
+            calcs["gtam"] = None
+            calcs["SgtM"] = None
+            calcs["DeltaM"] = None
+            calcs["GtFh"] = None
+            calcs["GtFa"] = None
+            calcs["sgtft1"] = None
+            calcs["sgtft"] = None
+            calcs["U/O"] = None
+            results_preds.update(calcs)
 
     if len(results) > 0:
         for key in unwanted_keys:

@@ -1,47 +1,73 @@
-def process(data, nations):
+def process(data, tc_data, leagues):
     """
     Processing method for returning liveodds from totalcorner request
     """
     results_preds = {}
     results = {}
-    for nation, coeff in nations.items():
+    for league, coeff in leagues.items():
         print(coeff)
 
-    results_preds["nation"] = nations.keys()
-    results_preds["home"] = 0
-    results_preds["away"] = 0
-    results_preds["Minute"] = data["Min"]
-    results_preds["Gol line"] = data["gol_line"]
-    results_preds["U/O"] = None
-    results_preds["Odd"] = None
+    unwanted_keys = ['h_id', 'a_id', 'hc', 'ac', 'hg', 'ag', 'hrc', 'arc',
+                     'hyc', 'ayc', 'hf_hc', 'hf_ac', 'hf_hg', 'hf_ag', 'ish',
+                     'hp', 'ap', 'asian_corner']
 
-    results["nation"] = nations.keys()
-    results["home"] = 0
-    results["away"] = 0
-    results["Minute"] = data["Min"]
-    results["Gol line"] = data["gol_line"]
-    results["U/O"] = None
-    results["Odd"] = None
+    for match in tc_data:
+        if match["status"] == 'full':
+            results.update(match)
+            calcs = {}
+            calcs["Datk"] = len(match["attacks_h"]) - len(match["attacks"])\
+                / int(data["Min"])
+            calcs["GttpH"] = len(match["shot_on_h"]) * float(data["Ptph"])
+            calcs["GttfH"] = len(match["shot_on_h"]) * float(data["Ptfh"])
+            calcs["GttpA"] = len(match["shot_on"]) * float(data["Ptpa"])
+            calcs["GttfA"] = len(match["shot_on"]) * float(data["Ptfa"])
+            calcs["GtatpH"] = len(match["attacks_h"]) * float(data["PAtpH"])
+            calcs["GtapA"] = len(match["attacks"]) * float(data["Patpa"])
+            calcs["GtHm"] = None
+            calcs["gtam"] = None
+            calcs["SgtM"] = None
+            calcs["DeltaM"] = None
+            calcs["GtFh"] = None
+            calcs["GtFa"] = None
+            calcs["sgtft1"] = None
+            calcs["sgtft"] = None
+            calcs["U/O"] = None
+            results.update(calcs)
+
+        elif match["status"] == data["Min"]:
+            results_preds.update({'Minute': data["Min"]})
+            results_preds.update(match)
+            calcs = {}
+            calcs["Datk"] = len(match["attacks_h"]) - len(match["attacks"])\
+                / int(data["Min"])
+            calcs["GttpH"] = len(match["shot_on_h"]) * float(data["Ptph"])
+            calcs["GttfH"] = len(match["shot_on_h"]) * float(data["Ptfh"])
+            calcs["GttpA"] = len(match["shot_on"]) * float(data["Ptpa"])
+            calcs["GttfA"] = len(match["shot_on"]) * float(data["Ptfa"])
+            calcs["GtatpH"] = len(match["attacks_h"]) * float(data["PAtpH"])
+            calcs["GtapA"] = len(match["attacks"]) * float(data["Patpa"])
+            calcs["GtHm"] = None
+            calcs["gtam"] = None
+            calcs["SgtM"] = None
+            calcs["DeltaM"] = None
+            calcs["GtFh"] = None
+            calcs["GtFa"] = None
+            calcs["sgtft1"] = None
+            calcs["sgtft"] = None
+            calcs["U/O"] = None
+            results_preds.update(calcs)
+
+    if len(results) > 0:
+        for key in unwanted_keys:
+            try:
+                del results[key]
+            except KeyError:
+                pass
+    if len(results_preds) > 0:
+        for key in unwanted_keys:
+            try:
+                del results_preds[key]
+            except KeyError:
+                pass
 
     return results_preds, results
-
-
-# Datk	Delta atk al minuto
-# GttpH	Gol teorici da tiri in porta Home
-# GttfH	Gol teorici da tiri fuori Home
-# GttpH	Gol teorici da tiri in porta Away
-# Gttfa	Gol teorici da tiri fuori Away
-# GtatpH	Gol teorici da attacchi pericolosi Home
-# GtapA	Gol teorici da attacchi pericolosi Away
-#
-# GtHm	Gol teorici home al min
-# gtam	Gol teorici away al min
-# SgtM	Somm Gol teorici al Min
-# DeltaM	Delta gol teorici
-#
-# GtFh	Gol teorici home full time
-# GtFa	Gol teorici away full time
-# sgtft1	Sg total line 1
-# sgtft	Sg total line ok
-#
-# U/O

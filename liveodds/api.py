@@ -35,9 +35,32 @@ class totalcorner():
             self.params.update(**kwargs)
         self.params['token'] = self.token
         self.params['type'] = 'inplay'
-        self.params['columns'] = "events,odds"
+        self.params['columns'] = "odds,cornerLine,cornerLineHalf,\
+        goalLine,goalLineHalf,asianCorner,attacks,\
+        dangerousAttacks,shotOn,shotOff,possession"
 
         data = self._get('match/today', params=self.params)
+
+        if not data['success']:
+            raise LiveOddsError(str(data['error']))
+            return 1
+        return data["data"]
+
+    def get_league_odds(self, league_id, **kwargs):
+        """
+        Method for retrieving league odds from totalscore
+        """
+        self.league_id = league_id
+        if kwargs:
+            self.params.update(**kwargs)
+        self.params['type'] = 'inplay'
+        self.params['token'] = self.token
+        self.params['columns'] = "odds,cornerLine,cornerLineHalf,\
+        goalLine,goalLineHalf,asianCorner,attacks,\
+        dangerousAttacks,shotOn,shotOff,possession"
+
+        data = self._get(f'league/schedule/{self.league_id}',
+                         params=self.params)
 
         if not data['success']:
             raise LiveOddsError(str(data['error']))

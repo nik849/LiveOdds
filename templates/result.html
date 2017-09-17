@@ -30,20 +30,24 @@
 						<form name="contactform" method="post" action="/submit" class="form-horizontal" role="form">
 							<h4>Prediction</h4>
 							<table>
-								{% for key, value in result_pred.items() %}
+								{% for result_p in result_pred %}
+								{% for key, value in result_p.items() %}
    					<tr>
         		<th> {{ key }} </th>
         		<td> {{ value }} </td>
    				</tr>
 							{% endfor %}
+							{% endfor %}
 							</table>
 							<h4>Results</h4>
 							<table>
-								{% for key, value in result.items() %}
+								{% for res in result%}
+								{% for key, value in res.items() %}
 						<tr>
 						<th> {{ key }} </th>
 						<td> {{ value }} </td>
 					</tr>
+							{% endfor %}
 							{% endfor %}
 							</table>
 						</form>

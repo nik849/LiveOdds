@@ -22,7 +22,7 @@ def process(data, tc_data, leagues):
             if match["status"] == 'full':
                 #results.update({'Minute': data["Min"]})
                                 #results.update(match)
-                print(data["Min"])
+                #print(data["Min"])
                 calcs = {}
                 calcs["Nation"] = league
                 if calcs["Nation"] == match["h"] or match["a"]:
@@ -96,7 +96,7 @@ def process(data, tc_data, leagues):
             else: #match["status"] == data["Min"]:
                 results_preds.update({'Minute': data["Min"]})
                 #results_preds.update(match)
-                print(data["Min"])
+                #print(data["Min"])
                 calcs = {}
                 calcs["Nation"] = league
                 if calcs["Nation"] == match["h"] or match["a"]:

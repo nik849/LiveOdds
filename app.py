@@ -43,7 +43,6 @@ def submit():
     data["ValueMin"] = float(request.form.get("inputValueMin"))
 
     tc_data = tc.get_odds()
-    #print(tc_data)
 
     results_preds, results = process(data, tc_data, leagues)
     return render_template('/result.html', result_pred=results_preds,

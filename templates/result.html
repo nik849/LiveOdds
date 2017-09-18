@@ -49,7 +49,25 @@
 							  {% endfor %}
 
 							<table>
+							<h4>FullTime Results<h4>
+								<table style="width:100%">
+								  <!-- table header -->
+								  {% if results %}
+								  <tr>
+								     {% for key in results[0] %}
+								     <th> {{ key }} </th>
+								     {% endfor %}
+								  </tr>
+								  {% endif %}
 
+								  <!-- table rows -->
+								  {% for dict_item in results %}
+								  <tr>
+								     {% for value in dict_item.values() %}
+								     <td> {{ value }} </td>
+								     {% endfor %}
+								  </tr>
+								  {% endfor %}
 						</form>
 					</div>
 				</div>

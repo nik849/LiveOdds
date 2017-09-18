@@ -24,7 +24,7 @@ def index():
 def submit():
     leaguestr = request.form.get("inputCoNz")
     leagues = (dict(item.split("\t") for item in leaguestr.splitlines()))
-    print(leagues)
+    #print(leagues)
     data = {}
     data["Min"] = int(request.form.get("inputMinute"))
     data["Ptph"] = float(request.form.get("inputPtph"))

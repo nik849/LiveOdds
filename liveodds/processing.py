@@ -17,8 +17,8 @@ def process(data, tc_data, leagues):
                          'hp', 'ap', 'asian_corner']
 
         for match in tc_data:
-            print(match["h"])
-            print(match["a"])
+            #print(match["h"])
+            #print(match["a"])
             if match["status"] == 'full':
                 #results.update({'Minute': data["Min"]})
                                 #results.update(match)

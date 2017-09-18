@@ -93,7 +93,7 @@ def process(data, tc_data, leagues):
                     results.update(calcs)
                     overall_results.append(results)
 
-            elif match["status"] == data["Min"]:
+            else: #match["status"] == data["Min"]:
                 results_preds.update({'Minute': data["Min"]})
                 #results_preds.update(match)
                 print(data["Min"])

@@ -111,18 +111,15 @@ def process(data, tc_data, leagues):
                     calcs["GtapA"] = len(match["attacks"]) * float(data["Patpa"])
                     calcs["GtHm"] = int((calcs["GttpH"] + calcs["GttfH"] + calcs["GtapH"])\
                         + calcs["Datk"] / 3)
-
-
                     calcs["gtam"] = int((calcs["GttpH"] + calcs["GttfH"] + calcs["GtapH"])\
                         - calcs["Datk"] / 3)
 
-                    calcs["SgtM"] = 1#where(where(calcs["GtHm"] < float(data["CofMinH"]), 0,
-                    #                       calcs["GtHm"] + where(calcs["gtam"] <
-                    #                       float(data["CofMinA"]), 0 + where(calcs["gtam"] +
-                    #                       where(calcs["CoNz"] < 0, 0, where(calcs["GtHm"] <
-                    #                       float(data["CofMinH"]), 0, calcs["GtHm"] +
-                    #                       where(calcs["gtam"] < float(data["CofMinA"]), 0,
-                    #                       calcs["gtam"] + calcs["CoNz"])))))))
+                    calcs["SgtM"] = where(where(calcs["GtHm"] < float(data["CofMinH"]), 0,
+                                          calcs["GtHm"]) + where(calcs["gtam"] <
+                                          float(data["CofMinA"]), 0, calcs["gtam"])
+                                          + calcs["CoNz"] < 0, 0, where(calcs["GtHm"] < calcs["gtam"], 0, calcs["GtHm"])
+                                          + where(calcs["gtam"] < float(data["CofMinA"]), 0, calcs["gtam"]) + calcs["CoNz"])
+
 
                     print(type(calcs["SgtM"]))
                     print(calcs["SgtM"])
@@ -155,12 +152,11 @@ def process(data, tc_data, leagues):
                         calcs["gtam"]) / 2) / 50 * 90 + (calcs["DeltaM"] / 3),
                         ((int(match["ag"]) * calcs["gtam"]) / 2) / 50 * 90))
 
-                    print(calcs["GtFa"])
                     calcs["sgtft1"] = where(calcs["GtFh"] < 0, 5, calcs["GtFh"]) + \
                         where(calcs["GtFa"] < 0, 7, calcs["GtFa"]) + \
                         where(calcs["DeltaM"] > data["CoefMaxSgt"], data["ValueMax"],
                         where(calcs["DeltaM"] < data["CoefMinSgt"], data["ValueMin"],
-                        0))#calcs["CoNz"]
+                        0)) + float(calcs["CoNz"])
                     calcs["sgtft"] = ((calcs["GtFh"] * where(data["Min"] > 75,
                         calcs["Sgmx"], calcs["GtFh"]) * where(where(data["Min"] <
                         46 and data["Min"] > 35), calcs["Sgmx"], calcs["GtHm"] +

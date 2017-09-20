@@ -44,7 +44,7 @@ def process(data, tc_data, leagues):
             calcs.update({'Minute': match["status"]})
             #results_preds.update(match)
             calcs["Nation"] = f'{match["h"]} vs {match["a"]}'
-            calcs["CoNz"] = 1
+            calcs["CoNz"] = int(data["Min"])
             match["attacks_h"] = []
             match["shot_on_h"] = []
             calcs["Datk"] = round(len(match["attacks_h"]) - len(match["attacks"])\
@@ -99,10 +99,12 @@ def process(data, tc_data, leagues):
                 where(calcs["DeltaM"] > data["CoefMaxSgt"], data["ValueMax"],
                 where(calcs["DeltaM"] < data["CoefMinSgt"], data["ValueMin"],
                 0)) + float(calcs["CoNz"])
+
             calcs["sgtft"] = round(((calcs["sgtft1"] * where(data["Min"] > 75,
                 calcs["Sgmx"], calcs["sgtft1"]) * where((data["Min"] <
                 46 and data["Min"] > 35), calcs["Sgmx"], (calcs["GtHm"] +
                 calcs["gtam"]))) / 3) + (calcs["CoNz"] / 3), 2)
+
             if calcs["sgtft1"] - gol_line:
                 string = 'Over'
             else:

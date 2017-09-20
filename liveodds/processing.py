@@ -9,7 +9,15 @@ def process(data, tc_data, leagues):
     overall_preds = []
     results_preds = {}
     results = {}
-    for league, coeff in leagues.items():
+    teams = []
+    for match in tc_data:
+        teams.append(match["h"])
+        teams.append(match["a"])
+    leagueset = set(list(leagues.keys()))
+    teamset = set(teams)
+
+    for league, coeff in leagueset.intersection(teamset):
+        print(f'Matched: {league}:{coeff}')
 
 
         unwanted_keys = ['h_id', 'a_id', 'hc', 'ac', 'hrc', 'arc',
@@ -98,8 +106,8 @@ def process(data, tc_data, leagues):
                 #results_preds.update(match)
                 #print(data["Min"])
                 calcs = {}
-                calcs["Nation"] = league
-                if calcs["Nation"] == match["h"] or match["a"]:
+                if league == match["h"] or match["a"]:
+                    calcs["Nation"] = league
                     calcs["CoNz"] = float(coeff)
                     match["attacks_h"] = []
                     match["shot_on_h"] = []

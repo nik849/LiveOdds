@@ -16,6 +16,7 @@ def process(data, tc_data, leagues):
         teams.append(match["a"])
         league_dict.update({match.get("h"):0})
         league_dict.update({match.get("a"):0})
+        print(match["status"])
 
     leagueset = set(list(leagues.keys()))
     teamset = set(teams)
@@ -25,7 +26,9 @@ def process(data, tc_data, leagues):
     print(league_dict)
 
     for match in tc_data:
-        if str(data["Min"]) == match["status"]:
+        if match["status"] == 'half':
+            match["status"] = 45
+        if int(data["Min"]) == int(match["status"]):
             calcs = {}
             unwanted_keys = ['h_id', 'a_id', 'hc', 'ac', 'hrc', 'arc',
                              'hyc', 'ayc', 'hf_hc', 'hf_ac', 'hf_hg', 'hf_ag', 'ish',
@@ -89,17 +92,17 @@ def process(data, tc_data, leagues):
                 where(calcs["DeltaM"] > data["CoefMaxSgt"], data["ValueMax"],
                 where(calcs["DeltaM"] < data["CoefMinSgt"], data["ValueMin"],
                 0)) + float(calcs["CoNz"])
-            calcs["sgtft"] = ((calcs["GtFh"] * where(data["Min"] > 75,
-                calcs["Sgmx"], calcs["GtFh"]) * where(where(data["Min"] <
-                46 and data["Min"] > 35), calcs["Sgmx"], calcs["GtHm"] +
-                calcs["gtam"])) / 3) + (calcs["CoNz"] / 3)
-
-            if calcs["sgtft1"] - data["ValueMax"]:
+            calcs["sgtft"] = round(((calcs["sgtft1"] * where(data["Min"] > 75,
+                calcs["Sgmx"], calcs["sgtft1"]) * where((data["Min"] <
+                46 and data["Min"] > 35), calcs["Sgmx"], (calcs["GtHm"] +
+                calcs["gtam"]))) / 3) + (calcs["CoNz"] / 3), 2)
+            gol_linestr = [x.replace("'", "") for x in match["p_goal_h"]]
+            gol_line = max([float(x) for x in gol_linestr])
+            if calcs["sgtft1"] - gol_line:
                 string = 'Over'
             else:
                 string = 'Under'
-            calcs["U/O"] = f'{string} {data["ValueMax"]}'
-            print(calcs)
+            calcs["U/O"] = f'{string} {gol_line}'
             overall_preds.append(calcs)
 
         if match["status"] == 'full':
@@ -166,17 +169,24 @@ def process(data, tc_data, leagues):
                 where(calcs["DeltaM"] > data["CoefMaxSgt"], data["ValueMax"],
                 where(calcs["DeltaM"] < data["CoefMinSgt"], data["ValueMin"],
                 0)) + float(calcs["CoNz"])
-            calcs["sgtft"] = ((calcs["GtFh"] * where(data["Min"] > 75,
-                calcs["Sgmx"], calcs["GtFh"]) * where(where(data["Min"] <
-                46 and data["Min"] > 35), calcs["Sgmx"], calcs["GtHm"] +
-                calcs["gtam"])) / 3) + (calcs["CoNz"] / 3)
+            calcs["sgtft"] = round(((calcs["sgtft1"] * where(data["Min"] > 75,
+                calcs["Sgmx"], calcs["sgtft1"]) * where((data["Min"] <
+                46 and data["Min"] > 35), calcs["Sgmx"], (calcs["GtHm"] +
+                calcs["gtam"]))) / 3) + (calcs["CoNz"] / 3), 2)
+            gol_linestr = [x.replace("'", "") for x in match["p_goal_h"]]
+            gol_line = max([float(x) for x in gol_linestr])
+            if calcs["sgtft1"] - gol_line:
+                string = 'Over'
+            else:
+                string = 'Under'
+            calcs["U/O"] = f'{string} {gol_line}'
+            overall_preds.append(calcs)
 
             if calcs["sgtft1"] - data["ValueMax"]:
                 string = 'Over'
             else:
                 string = 'Under'
             calcs["U/O"] = f'{string} {data["ValueMax"]}'
-            print(calcs)
             overall_results.append(calcs)
 
     if len(results) > 0:

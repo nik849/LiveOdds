@@ -23,6 +23,14 @@ def process(data, tc_data, leagues):
         league_dict[league] = coeff
 
     for match in tc_data:
+        gol_linestr = match["p_goal_h"][0].strip("'").split(", ")
+        try:
+            gol_line = float(gol_linestr)
+        except TypeError:
+            try:
+                gol_line = max([float(x) for x in gol_linestr])
+            except ValueError:
+                gol_line = 0
         if match["status"] == 'half':
             match["status"] = 45
         if int(data["Min"]) == int(match["status"]):
@@ -30,6 +38,8 @@ def process(data, tc_data, leagues):
             unwanted_keys = ['h_id', 'a_id', 'hc', 'ac', 'hrc', 'arc',
                              'hyc', 'ayc', 'hf_hc', 'hf_ac', 'hf_hg', 'hf_ag', 'ish',
                              'hp', 'ap', 'asian_corner']
+            gol_linestr = match["p_goal_h"][0].strip("'")
+
 
             calcs.update({'Minute': match["status"]})
             #results_preds.update(match)
@@ -93,8 +103,6 @@ def process(data, tc_data, leagues):
                 calcs["Sgmx"], calcs["sgtft1"]) * where((data["Min"] <
                 46 and data["Min"] > 35), calcs["Sgmx"], (calcs["GtHm"] +
                 calcs["gtam"]))) / 3) + (calcs["CoNz"] / 3), 2)
-            gol_linestr = [x.replace("'", "") for x in match["p_goal_h"]]
-            gol_line = max([float(x) for x in gol_linestr])
             if calcs["sgtft1"] - gol_line:
                 string = 'Over'
             else:
@@ -170,8 +178,6 @@ def process(data, tc_data, leagues):
                 calcs["Sgmx"], calcs["sgtft1"]) * where((data["Min"] <
                 46 and data["Min"] > 35), calcs["Sgmx"], (calcs["GtHm"] +
                 calcs["gtam"]))) / 3) + (calcs["CoNz"] / 3), 2)
-            gol_linestr = [x.replace("'", "") for x in match["p_goal_h"]]
-            gol_line = max([float(x) for x in gol_linestr])
             if calcs["sgtft1"] - gol_line:
                 string = 'Over'
             else:

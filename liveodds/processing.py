@@ -38,8 +38,8 @@ def process(data, tc_data, leagues):
                     print(calcs["CoNz"])
                     match["attacks_h"] = []
                     match["shot_on_h"] = []
-                    calcs["Datk"] = len(match["attacks_h"]) - len(match["attacks"])\
-                        / int(data["Min"])
+                    calcs["Datk"] = round(len(match["attacks_h"]) - len(match["attacks"])\
+                        / int(data["Min"]), 2)
                     calcs["GttpH"] = len(match["shot_on_h"]) * float(data["Ptph"])
                     calcs["GttfH"] = len(match["shot_on_h"]) * float(data["Ptfh"])
                     calcs["GttpA"] = len(match["shot_on"]) * float(data["Ptpa"])
@@ -58,10 +58,10 @@ def process(data, tc_data, leagues):
                                           + where(calcs["gtam"] < float(data["CofMinA"]), 0, calcs["gtam"]) + calcs["CoNz"])
                     calcs["Sgmx"] = int(match["hg"]) + int(match["ag"])
 
-                    calcs["DeltaM"] = ((
+                    calcs["DeltaM"] = round(((
                         int(match["hg"]) - calcs["GtHm"]) * (int(match["ag"]) -
                         calcs["gtam"]) * (calcs["Sgmx"] - calcs["SgtM"]
-                                         )) / 3
+                                         )) / 3, 2)
                     calcs["GtFh"] = where(where(calcs["DeltaM"] > 1, ((int(match["hg"]) *
                         calcs["GtHm"]) / 2) / data["Min"] * data["CoefMinH"] -
                         (calcs["DeltaM"] / 3), ((int(match["hg"]) * calcs["GtHm"]) / 2)
@@ -102,7 +102,7 @@ def process(data, tc_data, leagues):
                     results.update(calcs)
                     overall_results.append(results)
 
-            elif match["h"] or match["a"] == league:
+            elif match["h"] == league:
                 results_preds.update({'Minute': data["Min"]})
                 #results_preds.update(match)
                 print(match["status"])
@@ -112,8 +112,8 @@ def process(data, tc_data, leagues):
                 print(calcs["CoNz"])
                 match["attacks_h"] = []
                 match["shot_on_h"] = []
-                calcs["Datk"] = len(match["attacks_h"]) - len(match["attacks"])\
-                    / int(data["Min"])
+                calcs["Datk"] = round(len(match["attacks_h"]) - len(match["attacks"])\
+                    / int(data["Min"]), 2)
                 calcs["GttpH"] = len(match["shot_on_h"]) * float(data["Ptph"])
                 calcs["GttfH"] = len(match["shot_on_h"]) * float(data["Ptfh"])
                 calcs["GttpA"] = len(match["shot_on"]) * float(data["Ptpa"])
@@ -132,10 +132,10 @@ def process(data, tc_data, leagues):
                                       + where(calcs["gtam"] < float(data["CofMinA"]), 0, calcs["gtam"]) + calcs["CoNz"])
                 calcs["Sgmx"] = int(match["hg"]) + int(match["ag"])
 
-                calcs["DeltaM"] = ((
+                calcs["DeltaM"] = round(((
                     int(match["hg"]) - calcs["GtHm"]) * (int(match["ag"]) -
                     calcs["gtam"]) * (calcs["Sgmx"] - calcs["SgtM"]
-                                     )) / 3
+                                     )) / 3, 2)
                 calcs["GtFh"] = where(where(calcs["DeltaM"] > 1, ((int(match["hg"]) *
                     calcs["GtHm"]) / 2) / data["Min"] * data["CoefMinH"] -
                     (calcs["DeltaM"] / 3), ((int(match["hg"]) * calcs["GtHm"]) / 2)
@@ -168,6 +168,7 @@ def process(data, tc_data, leagues):
                     calcs["Sgmx"], calcs["GtFh"]) * where(where(data["Min"] <
                     46 and data["Min"] > 35), calcs["Sgmx"], calcs["GtHm"] +
                     calcs["gtam"])) / 3) + (calcs["CoNz"] / 3)
+                    
                 if calcs["sgtft1"] - data["ValueMax"]:
                     string = 'Over'
                 else:

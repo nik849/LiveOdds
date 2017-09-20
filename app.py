@@ -24,7 +24,7 @@ def index():
 def submit():
     leaguestr = request.form.get("inputCoNz")
     leagues = (dict(item.split("\t") for item in leaguestr.splitlines()))
-    print(leagues)
+    #print(leagues)
     data = {}
     data["Min"] = int(request.form.get("inputMinute"))
     data["Ptph"] = float(request.form.get("inputPtph"))
@@ -35,15 +35,14 @@ def submit():
     data["Patpa"] = float(request.form.get("inputPatpa"))
     data["CofMinH"] = float(request.form.get("inputCofMinH"))
     data["CofMinA"] = float(request.form.get("inputCofMinA"))
-    data["CoefMinH"] = float(request.form.get("inputCoefMinH"))
-    data["CoefMinA"] = float(request.form.get("inputCoefMinA"))
+    data["CoefMinH"] = int(request.form.get("inputCoefMinH"))
+    data["CoefMinA"] = int(request.form.get("inputCoefMinA"))
     data["CoefMaxSgt"] = float(request.form.get("inputCoefMaxSgt"))
     data["CoefMinSgt"] = float(request.form.get("inputCoefMinSgt"))
     data["ValueMax"] = float(request.form.get("inputValueMax"))
     data["ValueMin"] = float(request.form.get("inputValueMin"))
 
     tc_data = tc.get_odds()
-    #print(tc_data)
 
     results_preds, results = process(data, tc_data, leagues)
     return render_template('/result.html', result_pred=results_preds,

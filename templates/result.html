@@ -22,34 +22,52 @@
 	<body style="background:url('bg.png') repeat">
 		<div style="margin-top:50px">
 			<div class="container">
-				<div class="panel panel-default" style="margin:0 auto;width:500px">
+				<div class="panel panel-default" style="margin:0 auto;width:1000px">
 					<div class="panel-heading">
 						<h2 class="panel-title">Live Odds Results</h2>
 					</div>
 					<div class="panel-body">
 						<form name="contactform" method="post" action="/submit" class="form-horizontal" role="form">
 							<h4>Prediction</h4>
+							<table style="width:100%">
+							  <!-- table header -->
+							  {% if result_pred %}
+							  <tr>
+							     {% for key in result_pred[0] %}
+							     <th> {{ key }} </th>
+							     {% endfor %}
+							  </tr>
+							  {% endif %}
+
+							  <!-- table rows -->
+							  {% for dict_item in result_pred %}
+							  <tr>
+							     {% for value in dict_item.values() %}
+							     <td> {{ value }} </td>
+							     {% endfor %}
+							  </tr>
+							  {% endfor %}
+
 							<table>
-								{% for result_p in result_pred %}
-								{% for key, value in result_p.items() %}
-   					<tr>
-        		<th> {{ key }} </th>
-        		<td> {{ value }} </td>
-   				</tr>
-							{% endfor %}
-							{% endfor %}
-							</table>
-							<h4>Results</h4>
-							<table>
-								{% for res in result%}
-								{% for key, value in res.items() %}
-						<tr>
-						<th> {{ key }} </th>
-						<td> {{ value }} </td>
-					</tr>
-							{% endfor %}
-							{% endfor %}
-							</table>
+							<h4>FullTime Results<h4>
+								<table style="width:100%">
+								  <!-- table header -->
+								  {% if results %}
+								  <tr>
+								     {% for key in results[0] %}
+								     <th> {{ key }} </th>
+								     {% endfor %}
+								  </tr>
+								  {% endif %}
+
+								  <!-- table rows -->
+								  {% for dict_item in results %}
+								  <tr>
+								     {% for value in dict_item.values() %}
+								     <td> {{ value }} </td>
+								     {% endfor %}
+								  </tr>
+								  {% endfor %}
 						</form>
 					</div>
 				</div>

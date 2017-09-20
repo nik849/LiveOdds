@@ -39,12 +39,12 @@ def process(data, tc_data, leagues):
                              'hyc', 'ayc', 'hf_hc', 'hf_ac', 'hf_hg', 'hf_ag', 'ish',
                              'hp', 'ap', 'asian_corner']
             gol_linestr = match["p_goal_h"][0].strip("'")
-
-
             calcs.update({'Minute': match["status"]})
             #results_preds.update(match)
             calcs["Nation"] = f'{match["h"]} vs {match["a"]}'
-            calcs["CoNz"] = int(data["Min"])
+            calcs["CoNz"] = float(league_dict.get(match["h"]))
+            if calcs["CoNz"] == 0:
+                calcs["CoNz"] = float(league_dict.get(match["a"]))
             match["attacks_h"] = []
             match["shot_on_h"] = []
             calcs["Datk"] = round(len(match["attacks_h"]) - len(match["attacks"])\
@@ -60,11 +60,12 @@ def process(data, tc_data, leagues):
             calcs["gtam"] = int((calcs["GttpH"] + calcs["GttfH"] + calcs["GtapH"])\
                 - calcs["Datk"] / 3)
 
-            calcs["SgtM"] = where(where(calcs["GtHm"] < float(data["CofMinH"]), 0,
+            calcs["SgtM"] = where((where(calcs["GtHm"] < float(data["CofMinH"]), 0,
                                   calcs["GtHm"]) + where(calcs["gtam"] <
                                   float(data["CofMinA"]), 0, calcs["gtam"])
-                                  + calcs["CoNz"] < 0, 0, where(calcs["GtHm"] < calcs["gtam"], 0, calcs["GtHm"])
-                                  + where(calcs["gtam"] < float(data["CofMinA"]), 0, calcs["gtam"]) + calcs["CoNz"])
+                                  + calcs["CoNz"] < 0), 0, (where(calcs["GtHm"] < calcs["gtam"], 0, calcs["GtHm"])
+                                  + where(calcs["gtam"] < float(data["CofMinA"]), 0, calcs["gtam"]) + calcs["CoNz"]))
+
             calcs["Sgmx"] = int(match["hg"]) + int(match["ag"])
 
             calcs["DeltaM"] = round(((
@@ -121,7 +122,9 @@ def process(data, tc_data, leagues):
             calcs.update({'Minute': match["status"]})
             #results_preds.update(match)
             calcs["Nation"] = f'{match["h"]} vs {match["a"]}'
-            calcs["CoNz"] = 1
+            calcs["CoNz"] = float(league_dict.get(match["h"]))
+            if calcs["CoNz"] == 0:
+                calcs["CoNz"] = float(league_dict.get(match["a"]))
             match["attacks_h"] = []
             match["shot_on_h"] = []
             calcs["Datk"] = round(len(match["attacks_h"]) - len(match["attacks"])\
@@ -137,11 +140,12 @@ def process(data, tc_data, leagues):
             calcs["gtam"] = int((calcs["GttpH"] + calcs["GttfH"] + calcs["GtapH"])\
                 - calcs["Datk"] / 3)
 
-            calcs["SgtM"] = where(where(calcs["GtHm"] < float(data["CofMinH"]), 0,
+            calcs["SgtM"] = where((where(calcs["GtHm"] < float(data["CofMinH"]), 0,
                                   calcs["GtHm"]) + where(calcs["gtam"] <
                                   float(data["CofMinA"]), 0, calcs["gtam"])
-                                  + calcs["CoNz"] < 0, 0, where(calcs["GtHm"] < calcs["gtam"], 0, calcs["GtHm"])
-                                  + where(calcs["gtam"] < float(data["CofMinA"]), 0, calcs["gtam"]) + calcs["CoNz"])
+                                  + calcs["CoNz"] < 0), 0, (where(calcs["GtHm"] < calcs["gtam"], 0, calcs["GtHm"])
+                                  + where(calcs["gtam"] < float(data["CofMinA"]), 0, calcs["gtam"]) + calcs["CoNz"]))
+
             calcs["Sgmx"] = int(match["hg"]) + int(match["ag"])
 
             calcs["DeltaM"] = round(((

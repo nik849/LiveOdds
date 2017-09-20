@@ -23,7 +23,10 @@ def index():
 @app.route('/submit', methods=['POST', 'GET'])
 def submit():
     leaguestr = request.form.get("inputCoNz")
-    leagues = (dict(item.split("\t") for item in leaguestr.splitlines()))
+    try:
+        leagues = (dict(item.split("\t") for item in leaguestr.splitlines()))
+    except ValueError:
+        leagues = (dict(item.split(",") for item in leaguestr.splitlines()))    
     #print(leagues)
     data = {}
     data["Min"] = int(request.form.get("inputMinute"))

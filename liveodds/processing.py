@@ -67,10 +67,10 @@ def process(data, tc_data, leagues):
 
             calcs["Sgmx"] = int(match["hg"]) + int(match["ag"])
 
-            calcs["DeltaM"] = ((
+            calcs["DeltaM"] = round(((
                 float(match["hg"]) - float(calcs["GtHm"])) * (float(match["ag"]) -
                 calcs["gtam"]) * (float(calcs["Sgmx"]) - float(calcs["SgtM"])
-                                 )) / 3
+                                 )) / 3, 2)
             calcs["GtFh"] = where(where(calcs["DeltaM"] > 1, ((int(match["hg"]) *
                 calcs["GtHm"]) / 2) / data["Min"] * data["CoefMinH"] -
                 (calcs["DeltaM"] / 3), ((int(match["hg"]) * calcs["GtHm"]) / 2)
@@ -94,16 +94,16 @@ def process(data, tc_data, leagues):
                 calcs["gtam"]) / 2) / 50 * 90 + (calcs["DeltaM"] / 3),
                 ((int(match["ag"]) * calcs["gtam"]) / 2) / 50 * 90))
 
-            calcs["sgtft1"] = where(calcs["GtFh"] < 0, 5, calcs["GtFh"]) + \
+            calcs["sgtft1"] = round(where(calcs["GtFh"] < 0, 5, calcs["GtFh"]) + \
                 where(calcs["GtFa"] < 0, 7, calcs["GtFa"]) + \
                 where(calcs["DeltaM"] > data["CoefMaxSgt"], data["ValueMax"],
                 where(calcs["DeltaM"] < data["CoefMinSgt"], data["ValueMin"],
-                0)) + float(calcs["CoNz"])
+                0)) + float(calcs["CoNz"]), 2)
 
-            calcs["sgtft"] = ((calcs["sgtft1"] * where(float(data["Min"]) > 75,
+            calcs["sgtft"] = round(((calcs["sgtft1"] * where(float(data["Min"]) > 75,
                 calcs["Sgmx"], calcs["sgtft1"]) * where((float(data["Min"]) <
                 46 and float(data["Min"]) > 35), calcs["Sgmx"], (calcs["GtHm"] +
-                calcs["gtam"]))) / 3) + (calcs["CoNz"] / 3)
+                calcs["gtam"]))) / 3) + (calcs["CoNz"] / 3), 2)
 
             i_goalstr = match["i_goal"][0].strip("'").split(", ")
             try:

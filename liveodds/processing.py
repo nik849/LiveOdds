@@ -38,7 +38,6 @@ def process(data, tc_data, leagues):
             unwanted_keys = ['h_id', 'a_id', 'hc', 'ac', 'hrc', 'arc',
                              'hyc', 'ayc', 'hf_hc', 'hf_ac', 'hf_hg', 'hf_ag', 'ish',
                              'hp', 'ap', 'asian_corner']
-            gol_linestr = match["p_goal_h"][0].strip("'")
             calcs.update({'Minute': match["status"]})
             #results_preds.update(match)
             calcs["Nation"] = f'{match["h"]} vs {match["a"]}'
@@ -47,14 +46,14 @@ def process(data, tc_data, leagues):
                 calcs["CoNz"] = float(league_dict.get(match["a"]))
             match["attacks_h"] = []
             match["shot_on_h"] = []
-            calcs["Datk"] = round(len(match["attacks_h"]) - len(match["attacks"])\
-                / int(data["Min"]), 2)
-            calcs["GttpH"] = len(match["shot_on_h"]) * float(data["Ptph"])
-            calcs["GttfH"] = len(match["shot_on_h"]) * float(data["Ptfh"])
-            calcs["GttpA"] = len(match["shot_on"]) * float(data["Ptpa"])
-            calcs["GttfA"] = len(match["shot_on"]) * float(data["Ptfa"])
-            calcs["GtapH"] = len(match["attacks_h"]) * float(data["PAtpH"])
-            calcs["GtapA"] = len(match["attacks"]) * float(data["Patpa"])
+            calcs["Datk"] = round((float(match["dang_attacks"][0]) - float(match["dang_attacks"][1]))\
+                / float(data["Min"]), 2)
+            calcs["GttpH"] = float(match["shot_on"][0]) * float(data["Ptph"])
+            calcs["GttfH"] = float(match["shot_off"][0]) * float(data["Ptfh"])
+            calcs["GttpA"] = float(match["shot_on"][1]) * float(data["Ptpa"])
+            calcs["GttfA"] = float(match["shot_off"][1]) * float(data["Ptfa"])
+            calcs["GtapH"] = float(match["dang_attacks"][0]) * float(data["PAtpH"])
+            calcs["GtapA"] = float(match["dang_attacks"][0]) * float(data["Patpa"])
             calcs["GtHm"] = int((calcs["GttpH"] + calcs["GttfH"] + calcs["GtapH"])\
                 + calcs["Datk"] / 3)
             calcs["gtam"] = int((calcs["GttpH"] + calcs["GttfH"] + calcs["GtapH"])\
@@ -68,10 +67,10 @@ def process(data, tc_data, leagues):
 
             calcs["Sgmx"] = int(match["hg"]) + int(match["ag"])
 
-            calcs["DeltaM"] = round(((
-                int(match["hg"]) - calcs["GtHm"]) * (int(match["ag"]) -
-                calcs["gtam"]) * (calcs["Sgmx"] - calcs["SgtM"]
-                                 )) / 3, 2)
+            calcs["DeltaM"] = ((
+                float(match["hg"]) - float(calcs["GtHm"])) * (float(match["ag"]) -
+                calcs["gtam"]) * (float(calcs["Sgmx"]) - float(calcs["SgtM"])
+                                 )) / 3
             calcs["GtFh"] = where(where(calcs["DeltaM"] > 1, ((int(match["hg"]) *
                 calcs["GtHm"]) / 2) / data["Min"] * data["CoefMinH"] -
                 (calcs["DeltaM"] / 3), ((int(match["hg"]) * calcs["GtHm"]) / 2)
@@ -101,16 +100,27 @@ def process(data, tc_data, leagues):
                 where(calcs["DeltaM"] < data["CoefMinSgt"], data["ValueMin"],
                 0)) + float(calcs["CoNz"])
 
-            calcs["sgtft"] = round(((calcs["sgtft1"] * where(data["Min"] > 75,
-                calcs["Sgmx"], calcs["sgtft1"]) * where((data["Min"] <
-                46 and data["Min"] > 35), calcs["Sgmx"], (calcs["GtHm"] +
-                calcs["gtam"]))) / 3) + (calcs["CoNz"] / 3), 2)
+            calcs["sgtft"] = ((calcs["sgtft1"] * where(float(data["Min"]) > 75,
+                calcs["Sgmx"], calcs["sgtft1"]) * where((float(data["Min"]) <
+                46 and float(data["Min"]) > 35), calcs["Sgmx"], (calcs["GtHm"] +
+                calcs["gtam"]))) / 3) + (calcs["CoNz"] / 3)
 
-            if calcs["sgtft1"] - gol_line:
+            i_goalstr = match["i_goal"][0].strip("'").split(", ")
+            try:
+                i_goal = float(i_goalstr)
+            except TypeError:
+                try:
+                    i_goal = max([float(x) for x in i_goalstr])
+                except ValueError:
+                    i_goal = 0
+
+            if calcs["sgtft1"] - i_goal:
                 string = 'Over'
             else:
                 string = 'Under'
             calcs["U/O"] = f'{string} {gol_line}'
+
+            print(match)
             overall_preds.append(calcs)
 
         if match["status"] == 'full':
@@ -127,14 +137,14 @@ def process(data, tc_data, leagues):
                 calcs["CoNz"] = float(league_dict.get(match["a"]))
             match["attacks_h"] = []
             match["shot_on_h"] = []
-            calcs["Datk"] = round(len(match["attacks_h"]) - len(match["attacks"])\
-                / int(data["Min"]), 2)
-            calcs["GttpH"] = len(match["shot_on_h"]) * float(data["Ptph"])
-            calcs["GttfH"] = len(match["shot_on_h"]) * float(data["Ptfh"])
-            calcs["GttpA"] = len(match["shot_on"]) * float(data["Ptpa"])
-            calcs["GttfA"] = len(match["shot_on"]) * float(data["Ptfa"])
-            calcs["GtapH"] = len(match["attacks_h"]) * float(data["PAtpH"])
-            calcs["GtapA"] = len(match["attacks"]) * float(data["Patpa"])
+            calcs["Datk"] = round((float(match["dang_attacks"][0]) - float(match["dang_attacks"][1]))\
+                / float(data["Min"]), 2)
+            calcs["GttpH"] = float(match["shot_on"][0]) * float(data["Ptph"])
+            calcs["GttfH"] = float(match["shot_off"][0]) * float(data["Ptfh"])
+            calcs["GttpA"] = float(match["shot_on"][1]) * float(data["Ptpa"])
+            calcs["GttfA"] = float(match["shot_off"][1]) * float(data["Ptfa"])
+            calcs["GtapH"] = float(match["dang_attacks"][0]) * float(data["PAtpH"])
+            calcs["GtapA"] = float(match["dang_attacks"][0]) * float(data["Patpa"])
             calcs["GtHm"] = int((calcs["GttpH"] + calcs["GttfH"] + calcs["GtapH"])\
                 + calcs["Datk"] / 3)
             calcs["gtam"] = int((calcs["GttpH"] + calcs["GttfH"] + calcs["GtapH"])\
@@ -148,10 +158,10 @@ def process(data, tc_data, leagues):
 
             calcs["Sgmx"] = int(match["hg"]) + int(match["ag"])
 
-            calcs["DeltaM"] = round(((
-                int(match["hg"]) - calcs["GtHm"]) * (int(match["ag"]) -
-                calcs["gtam"]) * (calcs["Sgmx"] - calcs["SgtM"]
-                                 )) / 3, 2)
+            calcs["DeltaM"] = ((
+                float(match["hg"]) - float(calcs["GtHm"])) * (float(match["ag"]) -
+                calcs["gtam"]) * (float(calcs["Sgmx"]) - float(calcs["SgtM"])
+                                 )) / 3
             calcs["GtFh"] = where(where(calcs["DeltaM"] > 1, ((int(match["hg"]) *
                 calcs["GtHm"]) / 2) / data["Min"] * data["CoefMinH"] -
                 (calcs["DeltaM"] / 3), ((int(match["hg"]) * calcs["GtHm"]) / 2)
@@ -180,22 +190,17 @@ def process(data, tc_data, leagues):
                 where(calcs["DeltaM"] > data["CoefMaxSgt"], data["ValueMax"],
                 where(calcs["DeltaM"] < data["CoefMinSgt"], data["ValueMin"],
                 0)) + float(calcs["CoNz"])
-            calcs["sgtft"] = round(((calcs["sgtft1"] * where(data["Min"] > 75,
-                calcs["Sgmx"], calcs["sgtft1"]) * where((data["Min"] <
-                46 and data["Min"] > 35), calcs["Sgmx"], (calcs["GtHm"] +
-                calcs["gtam"]))) / 3) + (calcs["CoNz"] / 3), 2)
+
+            calcs["sgtft"] = ((calcs["sgtft1"] * where(float(data["Min"]) > 75,
+                calcs["Sgmx"], calcs["sgtft1"]) * where((float(data["Min"]) <
+                46 and float(data["Min"]) > 35), calcs["Sgmx"], (calcs["GtHm"] +
+                calcs["gtam"]))) / 3) + (calcs["CoNz"] / 3)
+
             if calcs["sgtft1"] - gol_line:
                 string = 'Over'
             else:
                 string = 'Under'
             calcs["U/O"] = f'{string} {gol_line}'
-            overall_preds.append(calcs)
-
-            if calcs["sgtft1"] - data["ValueMax"]:
-                string = 'Over'
-            else:
-                string = 'Under'
-            calcs["U/O"] = f'{string} {data["ValueMax"]}'
             overall_results.append(calcs)
 
     if len(results) > 0:

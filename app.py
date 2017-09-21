@@ -4,8 +4,6 @@ from liveodds.api import totalcorner
 from liveodds.config import totalcorner_test_token
 from liveodds.processing import process
 
-from sys import argv
-
 app = Flask(__name__)
 app.secret_key = 'key'
 
@@ -29,7 +27,6 @@ def submit():
         leagues = (dict(item.split("\t") for item in leaguestr.splitlines()))
     except ValueError:
         leagues = (dict(item.split(",") for item in leaguestr.splitlines()))
-    #print(leagues)
     data = {}
     data["Min"] = int(request.form.get("inputMinute"))
     data["Ptph"] = float(request.form.get("inputPtph"))

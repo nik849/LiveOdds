@@ -1,5 +1,3 @@
-import atexit
-
 from apscheduler.scheduler import Scheduler
 from flask import Flask, render_template, request, session
 
@@ -70,18 +68,16 @@ def submit():
 @cron.interval_schedule(minutes=1)
 def cron():
     with app.test_request_context():
-        #with app.test_request_context():
         league_update = session.get('leagues')
         for i in tc.get_odds():
             tc_update.append(i)
             print(i)
 
-        results_preds, results = process(data_update[-1], tc_update, league_update)
+        results_preds, results = process(data_update[-1], tc_update,
+                                         league_update)
         return render_template('/result.html', result_pred=results_preds,
                                result=results)
 
-
-#atexit.register(lambda: cron.shutdown(wait=False))
 
 if __name__ == "__main__":
     app.run(debug=True)

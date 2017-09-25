@@ -16,9 +16,14 @@ def process(data, tc_data, leagues):
         teams.append(match["a"])
         league_dict.update({match.get("h"):0})
         league_dict.update({match.get("a"):0})
+    try:
+        leagueset = set(list(leagues.keys()))
+        teamset = set(teams)
+    except AttributeError:
+        print('No teams specified.')
+        leagues = {}
+        leagues['0'] = 0
         
-    leagueset = set(list(leagues.keys()))
-    teamset = set(teams)
     for league, coeff in leagues.items():
         league_dict[league] = coeff
 

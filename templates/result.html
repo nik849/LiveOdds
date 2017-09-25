@@ -24,10 +24,21 @@
 			<div class="container">
 				<div class="panel panel-default" style="margin:0 auto;width:1000px">
 					<div class="panel-heading">
-						<h2 class="panel-title">Live Odds Results</h2>
+						<form name="contactform" method="post" action="/config" class="form-horizontal" role="form">
+							<h2 class="panel-title">Live Odds Results</h2>
+							<p></p>
+							<div class="form-group">
+							<button type="config" method="post" class="btn btn-default" action="/config">
+								Config
+							</button>
+						</div>
+					</form>
+
 					</div>
-					<div class="panel-body">
-						<form name="contactform" method="post" action="/submit" class="form-horizontal" role="form">
+				</div>
+					<div class="panel-body" style="margin:0 auto;width:1000px">
+						<div class="form-group">
+						<form name="contactform" method="post" action="/config" class="form-horizontal" role="form">
 							<h4>Prediction</h4>
 							<table style="width:100%">
 							  <!-- table header -->

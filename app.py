@@ -1,4 +1,7 @@
-from flask import Flask, render_template, request
+import atexit
+
+from apscheduler.scheduler import Scheduler
+from flask import Flask, render_template, request, session
 
 from liveodds.api import totalcorner
 from liveodds.config import totalcorner_test_token
@@ -6,6 +9,8 @@ from liveodds.processing import process
 
 app = Flask(__name__)
 app.secret_key = 'key'
+cron = Scheduler(daemon=True)
+cron.start()
 
 tc = totalcorner(token=totalcorner_test_token)
 
@@ -20,11 +25,18 @@ def index():
     return render_template('/index.html')
 
 
+@app.route('/config', methods=['POST', 'GET'])
+def config():
+    return render_template('/index.html')
+
+
 @app.route('/submit', methods=['POST', 'GET'])
 def submit():
     leaguestr = request.form.get("inputCoNz")
-    leagues = (dict(item.split("\t") for item in leaguestr.splitlines()))
-    #print(leagues)
+    try:
+        leagues = (dict(item.split("\t") for item in leaguestr.splitlines()))
+    except ValueError:
+        leagues = (dict(item.split(",") for item in leaguestr.splitlines()))
     data = {}
     data["Min"] = int(request.form.get("inputMinute"))
     data["Ptph"] = float(request.form.get("inputPtph"))
@@ -42,12 +54,30 @@ def submit():
     data["ValueMax"] = float(request.form.get("inputValueMax"))
     data["ValueMin"] = float(request.form.get("inputValueMin"))
 
+    session['data'] = data
+    session['leagues'] = leagues
     tc_data = tc.get_odds()
 
     results_preds, results = process(data, tc_data, leagues)
     return render_template('/result.html', result_pred=results_preds,
                            result=results)
 
+
+@cron.interval_schedule(minutes=1)
+def cron():
+
+    with app.test_request_context():
+        tc_data = tc.get_odds()
+
+        data = session.get('data', None)
+        leagues = session.get('data', None)
+
+        results_preds, results = process(data, tc_data, leagues)
+        return render_template('/result.html', result_pred=results_preds,
+                               result=results)
+
+
+atexit.register(lambda: cron.shutdown(wait=False))
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -25,19 +25,22 @@ def index():
     return render_template('/index.html')
 
 
-@app.route('/config', methods=['POST', 'GET'])
-def config():
-    return render_template('/index.html')
-
-
 @app.route('/submit', methods=['POST', 'GET'])
 def submit():
+
     global data
+    global data_update
     leaguestr = request.form.get("inputCoNz")
     try:
         leagues = (dict(item.split("\t") for item in leaguestr.splitlines()))
-    except ValueError:
-        leagues = (dict(item.split(",") for item in leaguestr.splitlines()))
+    except:
+        try:
+            leagues = (dict(item.split(",") for item in leaguestr.splitlines()))
+        except:
+            pass
+    finally:
+        leagues = {}
+        leagues['0'] = 0
     data = {}
     data["Min"] = int(request.form.get("inputMinute"))
     data["Ptph"] = float(request.form.get("inputPtph"))
@@ -55,27 +58,16 @@ def submit():
     data["ValueMax"] = float(request.form.get("inputValueMax"))
     data["ValueMin"] = float(request.form.get("inputValueMin"))
 
-    print(data)
-    session['leagues'] = leagues
-    tc_data = tc.get_odds()
-    data_update.append(data)
-
-    results_preds, results = process(data, tc_data, leagues)
-    return render_template('/result.html', result_pred=results_preds,
-                           result=results)
-
-
-@cron.interval_schedule(minutes=1)
-def cron():
     with app.test_request_context():
-        league_update = session.get('leagues')
+
+        print(data)
+        tc_data = tc.get_odds()
         for i in tc.get_odds():
             tc_update.append(i)
             print(i)
 
-        results_preds, results = process(data_update[-1], tc_update,
-                                         league_update)
-        return render_template('/result.html', result_pred=results_preds,
+        results_preds, results = process(data, tc_data, leagues)
+        return render_template('/index.html', result_pred=results_preds,
                                result=results)
 
 

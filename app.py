@@ -1,5 +1,5 @@
 from apscheduler.scheduler import Scheduler
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request
 
 from liveodds.api import totalcorner
 from liveodds.config import totalcorner_test_token
@@ -55,7 +55,8 @@ def submit():
         leagues = (dict(item.split("\t") for item in leaguestr.splitlines()))
     except:
         try:
-            leagues = (dict(item.split(",") for item in leaguestr.splitlines()))
+            leagues = (dict(item.split(",") for item in
+                       leaguestr.splitlines()))
         except:
             pass
     finally:
@@ -89,6 +90,7 @@ def submit():
         return render_template('/index.html', result_pred=results_preds,
                                result=results, val=data)
 
+
 @cron.interval_schedule(minutes=1)
 def cron():
     global data
@@ -96,7 +98,6 @@ def cron():
     with app.test_request_context():
 
         print(data)
-        tc_data = tc.get_odds()
         for i in tc.get_odds():
             tc_update.append(i)
             print(i)
@@ -105,6 +106,7 @@ def cron():
         return render_template('/index.html', result_pred=results_preds,
                                result=results, val=data)
     # Update every minute
+
 
 if __name__ == "__main__":
     app.run(debug=True)

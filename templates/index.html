@@ -2,7 +2,6 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<meta http-equiv="refresh" content="60">
 		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
 		Remove this if you use the .htaccess -->
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -23,9 +22,8 @@
 	<body style="background:url('bg.png') repeat">
 		<div style="margin-top:50px">
 			<div class="container">
-				<div class="panel panel-default" style="margin:0 ;width:1200px">
+				<div class="panel panel-default" style="margin:0 ;width:1250px">
 					<div class="panel-heading">
-
 							<h2 class="panel-title">Live Odds Results</h2>
 					</div>
 					<div class="panel panel-default pull-right" style="margin:0 auto;width:1000px">
@@ -73,107 +71,150 @@
 							</div>
 					</div>
 
-					<div class="panel panel-default pull-left" style="margin:0 auto;width:200px">
+					<div class="panel panel-default pull-left" style="margin:0 ;width:250px">
 						<div class="form-group">
-							<form name="contactform" method="post" action="/submit" class="form-horizontal" role="form">
+							<form name="contactform" method="post" action="/submit" class="form-vertical" role="form">
+
+
 								<div class="form-group">
-									<label for="inputName" class="col-lg-4 control-label">Min</label>
-									<div class="col-lg-8">
-										<input type="text" class="form-control" name="inputMinute" placeholder="Minuto dati">
-									</div>
+									<label class="sr-only" for="inlineFormInputGroup">Minute</label>
+								   <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+								     <div class="input-group-addon">Min</div>
+								     <input type="text" class="form-control" id="inlineFormInputGroup" name="inputMinute" placeholder="Minuto Dati">
+										 <div class="input-group-addon">{{ val["Min"] }}</div>
+								   </div>
 								</div>
 								<div class="form-group">
-									<label for="inputName" class="col-lg-4 control-label">CoNz</label>
-									<div class="col-lg-8">
-										<textarea class="form-control" rows="4" name="inputCoNz" placeholder="Coefficiente Nazione"></textarea>
-									</div>
+									<label class="sr-only" for="inlineFormInputGroup">CoNz</label>
+									 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+										 <div class="input-group-addon">CoNz</div>
+										 <input type="text" class="form-control" id="inlineFormInputGroup" name="inputCoNz" placeholder="Coefficiente Nazione">
+										 <div class="input-group-addon"></div>
+									 </div>
 								</div>
 								<div class="form-group">
-									<label for="inputEmail1" class="col-lg-4 control-label">Ptph</label>
-									<div class="col-lg-8">
-										<input type="text" class="form-control" name="inputPtph" placeholder="Coeff (peso) Tiri porta home">
-									</div>
+									<label class="sr-only" for="inlineFormInputGroup">Ptph</label>
+									 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+										 <div class="input-group-addon">Ptph</div>
+										 <input type="text" class="form-control" id="inlineFormInputGroup" name="inputPtph" placeholder="Coeff (peso) Tiri porta home">
+										 <div class="input-group-addon">{{ val["Ptph"] }}</div>
+									 </div>
 								</div>
 								<div class="form-group">
-									<label for="inputEmail1" class="col-lg-4 control-label">Ptfh</label>
-									<div class="col-lg-8">
-										<input type="text" class="form-control" name="inputPtfh" placeholder="Coeff (peso) Tiri fuori home">
-									</div>
+									<label class="sr-only" for="inlineFormInputGroup">Ptfh</label>
+									 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+										 <div class="input-group-addon">Ptfh</div>
+										 <input type="text" class="form-control" id="inlineFormInputGroup" name="inputPtfh" placeholder="Coeff (peso) Tiri fuori home">
+										 <div class="input-group-addon">{{ val["Ptfh"] }}</div>
+									 </div>
 								</div>
 								<div class="form-group">
-									<label for="inputEmail1" class="col-lg-4 control-label">Ptpa</label>
-									<div class="col-lg-8">
-										<input type="text" class="form-control" name="inputPtpa" placeholder="Coeff (peso) Tiri in porta away">
-									</div>
+									<label class="sr-only" for="inlineFormInputGroup">Ptfh</label>
+									 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+										 <div class="input-group-addon">Ptfh</div>
+										 <input type="text" class="form-control" id="inlineFormInputGroup" name="inputPtfh" placeholder="Coeff (peso) Tiri fuori home">
+										 <div class="input-group-addon">{{ val["Ptfh"] }}</div>
+									 </div>
 								</div>
 								<div class="form-group">
-									<label for="inputEmail1" class="col-lg-4 control-label">Ptfa</label>
-									<div class="col-lg-8">
-										<input type="text" class="form-control" name="inputPtfa" placeholder="Coeff (peso) Tiri fuori away">
-									</div>
+									<label class="sr-only" for="inlineFormInputGroup">Ptpa</label>
+									 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+										 <div class="input-group-addon">Ptpa</div>
+										 <input type="text" class="form-control" id="inlineFormInputGroup" name="inputPtpa" placeholder="Coeff (peso) Tiri in porta away">
+										 <div class="input-group-addon">{{ val["Ptpa"] }}</div>
+									 </div>
 								</div>
 								<div class="form-group">
-									<label for="inputEmail1" class="col-lg-4 control-label">PAtpH</label>
-									<div class="col-lg-8">
-										<input type="text" class="form-control" name="inputPAtpH" placeholder="Coeff (peso) Attacchi pericolosi Home">
-									</div>
+									<label class="sr-only" for="inlineFormInputGroup">Ptfa</label>
+									 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+										 <div class="input-group-addon">Ptfa</div>
+										 <input type="text" class="form-control" id="inlineFormInputGroup" name="inputPtfa" placeholder="Coeff (peso) Tiri in fuori away">
+										 <div class="input-group-addon">{{ val["Ptfa"] }}</div>
+									 </div>
 								</div>
 								<div class="form-group">
-									<label for="inputEmail1" class="col-lg-4 control-label">Patpa</label>
-									<div class="col-lg-8">
-										<input type="text" class="form-control" name="inputPatpa" placeholder="Coeff (peso) Attacchi pericolosi Away">
-									</div>
+									<label class="sr-only" for="inlineFormInputGroup">PAtpH</label>
+									 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+										 <div class="input-group-addon">PAtpH</div>
+										 <input type="text" class="form-control" id="inlineFormInputGroup" name="inputPAtpH" placeholder="Coeff (peso) Attacchi pericolosi Home">
+										 <div class="input-group-addon">{{ val["PAtpH"] }}</div>
+									 </div>
 								</div>
 								<div class="form-group">
-									<label for="inputEmail1" class="col-lg-4 control-label">CofMinH</label>
-									<div class="col-lg-8">
-										<input type="text" class="form-control" name="inputCofMinH" placeholder="Coefficiente minimo gol teorici home">
-									</div>
+									<label class="sr-only" for="inlineFormInputGroup">Patpa</label>
+									 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+										 <div class="input-group-addon">Patpa</div>
+										 <input type="text" class="form-control" id="inlineFormInputGroup" name="inputPatpa" placeholder="Coeff (peso) Attacchi pericolosi Away">
+										 <div class="input-group-addon">{{ val["Patpa"] }}</div>
+									 </div>
 								</div>
 								<div class="form-group">
-									<label for="inputEmail1" class="col-lg-4 control-label">CofMinA</label>
-									<div class="col-lg-8">
-										<input type="text" class="form-control" name="inputCofMinA" placeholder="Coefficiente minimo gol teorici away">
-									</div>
+									<label class="sr-only" for="inlineFormInputGroup">CofMinH</label>
+									 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+										 <div class="input-group-addon">CofMinH</div>
+										 <input type="text" class="form-control" id="inlineFormInputGroup" name="inputCofMinH" placeholder="Coefficiente minimo gol teorici home">
+										 <div class="input-group-addon">{{ val["CofMinH"] }}</div>
+									 </div>
 								</div>
 								<div class="form-group">
-									<label for="inputEmail1" class="col-lg-4 control-label">CoefMinH</label>
-									<div class="col-lg-8">
-										<input type="text" class="form-control" name="inputCoefMinH" placeholder="Coeff Minuti Partita Home">
-									</div>
+									<label class="sr-only" for="inlineFormInputGroup">CofMinA</label>
+									 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+										 <div class="input-group-addon">CofMinA</div>
+										 <input type="text" class="form-control" id="inlineFormInputGroup" name="inputCofMinA" placeholder="Coefficiente minimo gol teorici away">
+										 <div class="input-group-addon">{{ val["CofMinA"] }}</div>
+									 </div>
 								</div>
 								<div class="form-group">
-									<label for="inputEmail1" class="col-lg-4 control-label">CoefMinA</label>
-									<div class="col-lg-8">
-										<input type="text" class="form-control" name="inputCoefMinA" placeholder="Coeff Minuti Partita Away">
-									</div>
+									<label class="sr-only" for="inlineFormInputGroup">CoefMinH</label>
+									 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+										 <div class="input-group-addon">CoefMinH</div>
+										 <input type="text" class="form-control" id="inlineFormInputGroup" name="inputCoefMinH" placeholder="Coeff Minuti Partita Home">
+										 <div class="input-group-addon">{{ val["CoefMinH"] }}</div>
+									 </div>
 								</div>
 								<div class="form-group">
-									<label for="inputEmail1" class="col-lg-4 control-label">CoefMaxSgt</label>
-									<div class="col-lg-8">
-										<input type="text" class="form-control" name="inputCoefMaxSgt" placeholder="">
-									</div>
+									<label class="sr-only" for="inlineFormInputGroup">CoefMinA</label>
+									 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+										 <div class="input-group-addon">CoefMinA</div>
+										 <input type="text" class="form-control" id="inlineFormInputGroup" name="inputCoefMinA" placeholder="Coeff Minuti Partita Away">
+										 <div class="input-group-addon">{{ val["CoefMinA"] }}</div>
+									 </div>
 								</div>
 								<div class="form-group">
-									<label for="inputEmail1" class="col-lg-4 control-label">CoefMinSgt</label>
-									<div class="col-lg-8">
-										<input type="text" class="form-control" name="inputCoefMinSgt" placeholder="">
-									</div>
+									<label class="sr-only" for="inlineFormInputGroup">CoefMaxSgt</label>
+									 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+										 <div class="input-group-addon">CoefMaxSgt</div>
+										 <input type="text" class="form-control" id="inlineFormInputGroup" name="inputCoefMaxSgt">
+										 <div class="input-group-addon">{{ val["CoefMaxSgt"] }}</div>
+									 </div>
 								</div>
 								<div class="form-group">
-									<label for="inputEmail1" class="col-lg-4 control-label">ValueMax</label>
-									<div class="col-lg-8">
-										<input type="text" class="form-control" name="inputValueMax" placeholder="">
-									</div>
+									<label class="sr-only" for="inlineFormInputGroup">CoefMinSgt</label>
+									 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+										 <div class="input-group-addon">CoefMinSgt</div>
+										 <input type="text" class="form-control" id="inlineFormInputGroup" name="inputCoefMinSgt">
+										 <div class="input-group-addon">{{ val["CoefMinSgt"] }}</div>
+									 </div>
 								</div>
 								<div class="form-group">
-									<label for="inputEmail1" class="col-lg-4 control-label">ValueMin</label>
-									<div class="col-lg-8">
-										<input type="text" class="form-control" name="inputValueMin" placeholder="">
-									</div>
+									<label class="sr-only" for="inlineFormInputGroup">ValueMax</label>
+									 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+										 <div class="input-group-addon">ValueMax</div>
+										 <input type="text" class="form-control" id="inlineFormInputGroup" name="inputValueMax">
+										 <div class="input-group-addon">{{ val["ValueMax"] }}</div>
+									 </div>
 								</div>
 								<div class="form-group">
-									<div class="col-lg-offset-2 col-lg-2">
+									<label class="sr-only" for="inlineFormInputGroup">ValueMin</label>
+									 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+										 <div class="input-group-addon">ValueMin</div>
+										 <input type="text" class="form-control" id="inlineFormInputGroup" name="inputValueMin">
+										 <div class="input-group-addon">{{ val["ValueMin"] }}</div>
+									 </div>
+								</div>
+								</div>
+								<div class="form-group">
+									<div class="col-lg-8">
 										<button type="submit" class="btn btn-default">
 											Submit
 										</button>

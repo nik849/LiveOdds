@@ -23,7 +23,7 @@ def process(data, tc_data, leagues):
         print('No teams specified.')
         leagues = {}
         leagues['0'] = 0
-        
+
     for league, coeff in leagues.items():
         league_dict[league] = coeff
 
@@ -37,7 +37,7 @@ def process(data, tc_data, leagues):
             except ValueError:
                 gol_line = 0
         if match["status"] == 'half':
-            match["status"] = 45
+            match["status"] = 45   
         if int(data["Min"]) == int(match["status"]):
             calcs = {}
             unwanted_keys = ['h_id', 'a_id', 'hc', 'ac', 'hrc', 'arc',
